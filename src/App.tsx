@@ -22,6 +22,14 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import { LinkItem } from "./types";
 
+const API_BASE = (() => {
+  const hostname = typeof window !== "undefined" ? window.location.hostname : "";
+  if (hostname === "localhost" || hostname === "127.0.0.1" || hostname.endsWith(".run.app") || !hostname) {
+    return "";
+  }
+  return "https://ais-pre-6gwdmioel62lkndgpvkf3t-131836695025.asia-southeast1.run.app";
+})();
+
 export default function App() {
   // State variables
   const [links, setLinks] = useState<LinkItem[]>([]);
@@ -88,7 +96,7 @@ export default function App() {
       return;
     }
     try {
-      const res = await fetch("/api/links", {
+      const res = await fetch(`${API_BASE}/api/links`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -124,7 +132,7 @@ export default function App() {
 
     if (adminSavedToken) {
       try {
-        const res = await fetch("/api/auth/verify", {
+        const res = await fetch(`${API_BASE}/api/auth/verify`, {
           headers: {
             Authorization: `Bearer ${adminSavedToken}`,
           },
@@ -145,7 +153,7 @@ export default function App() {
 
     if (userSavedToken) {
       try {
-        const res = await fetch("/api/auth/verify-user", {
+        const res = await fetch(`${API_BASE}/api/auth/verify-user`, {
           headers: {
             Authorization: `Bearer ${userSavedToken}`,
           },
@@ -190,7 +198,7 @@ export default function App() {
     setPortalLoading(true);
     setPortalError("");
     try {
-      const res = await fetch("/api/auth/login-user", {
+      const res = await fetch(`${API_BASE}/api/auth/login-user`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: regUsername, password: regPassword }),
@@ -227,7 +235,7 @@ export default function App() {
     setPortalLoading(true);
     setPortalError("");
     try {
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch(`${API_BASE}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: regName, username: regUsername, password: regPassword }),
@@ -265,7 +273,7 @@ export default function App() {
     setPortalLoading(true);
     setPortalError("");
     try {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password: regPassword }),
@@ -294,7 +302,7 @@ export default function App() {
     const token = adminToken || userToken || localStorage.getItem("ruhul_web_token") || localStorage.getItem("ruhul_user_token");
     if (token) {
       try {
-        await fetch("/api/auth/logout", {
+        await fetch(`${API_BASE}/api/auth/logout`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -378,7 +386,7 @@ export default function App() {
     };
 
     try {
-      const url = formMode === "add" ? "/api/links" : `/api/links/${editingLinkId}`;
+      const url = formMode === "add" ? `${API_BASE}/api/links` : `${API_BASE}/api/links/${editingLinkId}`;
       const method = formMode === "add" ? "POST" : "PUT";
 
       const res = await fetch(url, {
@@ -423,7 +431,7 @@ export default function App() {
     setDeleteSubmitting(true);
 
     try {
-      const res = await fetch(`/api/links/${deletingLinkId}`, {
+      const res = await fetch(`${API_BASE}/api/links/${deletingLinkId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${adminToken}`,
