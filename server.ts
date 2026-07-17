@@ -4,6 +4,9 @@ import fs from "fs";
 import crypto from "crypto";
 import { createServer as createViteServer } from "vite";
 import { LinkItem } from "./src/types";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const PORT = 3000;
@@ -167,7 +170,7 @@ app.post("/api/auth/login", (req, res) => {
   const { password } = req.body;
   
   // Strict, server-side-only password verification
-  if (password === "rafiul@763") {
+  if (password === (process.env.ADMIN_PASSWORD || "Ruhul@763")) {
     // Generate a secure random token
     const token = "adm-" + crypto.randomBytes(32).toString("hex");
     activeSessions.add(token);
