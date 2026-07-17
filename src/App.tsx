@@ -209,8 +209,8 @@ export default function App() {
       } else {
         setPortalError(data.error || "ইউজারনেম অথবা পাসওয়ার্ড ভুল!");
       }
-    } catch (err) {
-      setPortalError("সার্ভারের সাথে যোগাযোগ করা যায়নি।");
+    } catch (err: any) {
+      setPortalError(`সার্ভারের সাথে যোগাযোগ করা যায়নি। (${err?.message || err})`);
       console.error(err);
     } finally {
       setPortalLoading(false);
@@ -247,8 +247,8 @@ export default function App() {
       } else {
         setPortalError(data.error || "ইউজারনেমটি ইতিমধ্যে ব্যবহৃত হয়েছে বা অ্যাকাউন্ট তৈরিতে সমস্যা হয়েছে।");
       }
-    } catch (err) {
-      setPortalError("সার্ভারের সাথে যোগাযোগ করা যায়নি।");
+    } catch (err: any) {
+      setPortalError(`সার্ভারের সাথে যোগাযোগ করা যায়নি। (${err?.message || err})`);
       console.error(err);
     } finally {
       setPortalLoading(false);
@@ -281,8 +281,8 @@ export default function App() {
       } else {
         setPortalError(data.error || "পাসওয়ার্ড সঠিক নয়!");
       }
-    } catch (err) {
-      setPortalError("সার্ভারের সাথে যোগাযোগ করা যায়নি।");
+    } catch (err: any) {
+      setPortalError(`সার্ভারের সাথে যোগাযোগ করা যায়নি। (${err?.message || err})`);
       console.error(err);
     } finally {
       setPortalLoading(false);
