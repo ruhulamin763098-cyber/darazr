@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Ruhul Web",
+  "description": "Ruhul-er touri app, website, and Daraz product links hub. Secure admin panel for managing links.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
